@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -22,10 +23,10 @@ Enemy.prototype.update = function(dt) {
         this.x = -100;
         this.speed = 100 + Math.floor(Math.random() * 480)
     }
-    if (player.x < this.x + 50 &&
-        player.x + 30 > this.x &&
-        player.y < this.y + 30 &&
-        player.y + 35 > this.y) {
+    if (player.x < this.x + 40 &&
+        player.x + 40 > this.x &&
+        player.y < this.y + 40 &&
+        player.y + 40 > this.y) {
 
         player.x = 200;
         player.y = 400;
@@ -52,27 +53,31 @@ Player.prototype.update = function() {
         this.y = 400;
     }
     if (this.x > 400) {
-        this.y = 400;
+        this.x = 400;
     }
     if (this.x < 0) {
         this.x = 0;
     }
-    if(this.y , 0) {
+    if(this.y < 0) {
         this.x = 200;
         this.y = 400;
     }
 }
 
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 Player.prototype.handleInput = function(keypress) {
     switch (keypress) {
         case 'left':
-            this.x -= this.speed + 40;
+            this.x -= this.speed + 50;
             break;
         case 'up':
             this.y -= this.speed + 30;
             break;
         case 'right':
-            this.x += this.speed + 40;
+            this.x += this.speed + 50;
             break;
         case 'down':
             this.y += this.speed + 30;
@@ -85,11 +90,36 @@ Player.prototype.handleInput = function(keypress) {
 // Place the player object in a variable called player
 var allEnemies = [];
 
-var enemyPosition = [50, 150, 230, 300];
+var enemyPosition = [55, 110, 170, 230];
 var player = new Player(200, 400, 50);
 
+function createPlayers() {
+    let playersList = [
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+    ];
+
+    let listWrap = document.createElement('ul');
+    listWrap.className = 'players';
+
+    for (let i = 0; i < playersList.length; i++) {
+        let listItem = document.createElement('li');
+        listItem.className = 'playerList';
+
+        let playerImage = document.createElement('img');
+        playerImage.setAttribute('src', playersList[i]);
+
+        listItem.appendChild(playerImage);
+        listWrap.appendChild(listItem);
+    }
+    document.body.appendChild(listWrap);
+}
+
 enemyPosition.forEach((position) => {
-    var enemy = new Enemy(0, position, Math.floor(Math.random() * 480));
+    var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
     allEnemies.push(enemy);
 })
 
@@ -105,3 +135,12 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+document.addEventListener('DOMContentLoaded', function(){
+    createPlayers();
+});
+
+
+
+
+
