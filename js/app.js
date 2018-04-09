@@ -63,6 +63,23 @@ Player.prototype.update = function() {
     }
 }
 
+Player.prototype.handleInput = function(keypress) {
+    switch (keypress) {
+        case 'left':
+            this.x -= this.speed + 40;
+            break;
+        case 'up':
+            this.y -= this.speed + 30;
+            break;
+        case 'right':
+            this.x += this.speed + 40;
+            break;
+        case 'down':
+            this.y += this.speed + 30;
+            break;
+    }
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
