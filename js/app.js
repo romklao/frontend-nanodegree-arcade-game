@@ -1,5 +1,46 @@
 'use strict';
 
+var characters = [ //Array of URLs for player and NPC sprites
+    'images/char-boy.png',
+    'images/char-cat-girl.png',
+    'images/char-horn-girl.png',
+    'images/char-pink-girl.png',
+    'images/char-princess-girl.png'
+];
+var play = false;
+var selectedChar;
+
+// Create SelectPlayer to allow a player to choose a character
+var SelectPlayer = function() {
+    this.col = 0;
+    this.x = this.col;
+    this.y = 370;
+    this.sprite = 'images/Selector.png';
+}
+
+// Get input from a player when they move selector
+SelectPlayer.prototype.handleInput = function(key) {
+    switch (key) {
+        case 'left':
+            this.col > 0 ? (this.col--, this.x = this.col * 101) : this.col;
+            break;
+        case 'right':
+            this.col < 4 ? (this.col++, this.x = this.col * 101) : this.col;
+            break;
+        case 'enter':
+            selectedChar = this.col;
+            console.log(selectedChar);
+            play = true;
+    }
+};
+
+// Selector render function
+SelectPlayer.prototype.render = function() {
+    ctx.save();
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.restore();
+}
+
 // Enemies our player must avoid
 let Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
