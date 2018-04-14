@@ -91,9 +91,11 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
+        if (play === true) {
+            allEnemies.forEach(function(enemy) {
             enemy.update(dt);
-        });
+            });
+        }
         player.update();
     }
 
@@ -107,7 +109,8 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
+        if (play === true) {
+            var rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
@@ -120,26 +123,28 @@ var Engine = (function(global) {
             row, col;
 
         // Before drawing, clear existing canvas
-        ctx.clearRect(0,0,canvas.width,canvas.height)
+        //ctx.clearRect(0,0,canvas.width,canvas.height)
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
-                 */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+            for (row = 0; row < numRows; row++) {
+                for (col = 0; col < numCols; col++) {
+                    /* The drawImage function of the canvas' context element
+                     * requires 3 parameters: the image to draw, the x coordinate
+                     * to start drawing and the y coordinate to start drawing.
+                     * We're using our Resources helpers to refer to our images
+                     * so that we get the benefits of caching these images, since
+                     * we're using them over and over.
+                     */
+                    ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                }
             }
+            renderEntities();
+        } else {
+            startScreen();
         }
-
-        renderEntities();
     }
 
     /* This function is called by the render function and is called on each game
@@ -157,7 +162,73 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
+    /* This function draws starting screen. User can choose a hero.
+     *T: add instructions, game info, etc */
+
+     function startScreen() {
+        ctx.drawImage(Resources.get('images/field.png'), canvas.width, 606);
+
+        /***** Game Description *****/
+        let gameDescription = 'Collect two Gems to gain one live';
+        let gameDescriptionTwo = 'Reach the water to win';
+        let gameDescriptionThree = 'Collect one Hearts to gain one live';
+
+        ctx.font = 'bold 25px Verdana';
+        ctx.textAlign = 'center';
+
+        ctx.fillStyle = '#086593';
+        ctx.fillText(gameDescription, canvas.width/2, 78);
+        ctx.fillText(gameDescriptionTwo, canvas.width/2, 110);
+        ctx.fillText(gameDescriptionThree, canvas.width/2, 145);
+
+        ctx.strokeStyle = '#ccc';
+        ctx.lineWidth = 1;
+        ctx.strokeText(gameDescription, canvas.width/2, 78);
+        ctx.strokeText(gameDescriptionTwo, canvas.width/2, 110);
+        ctx.strokeText(gameDescriptionThree, canvas.width/2, 145);
+
+        /****** Controls key ******/
+        let move = 'Move the player';
+        ctx.font = 'bold 25px Verdana';
+        ctx.textAlign = 'center';
+
+        ctx.fillStyle = '#086593';
+        ctx.fillText(move, canvas.width/2, 210);
+
+        ctx.strokeStyle = '#ccc';
+        ctx.lineWidth = 1;
+        ctx.strokeText(move, canvas.width/2, 210);
+
+        //ctx.drawImage(Resources.get('images/arrows.svg'), 50, 100);
+
+        /***** Character section *****/
+        let choosePlayer = 'Choose your player';
+        let choosePlayer2 = 'Press enter to start game'
+        ctx.font = 'bold 25px Verdana';
+        ctx.textAlign = 'center';
+
+        ctx.fillStyle = '#086593';
+        ctx.fillText(choosePlayer, canvas.width/2, 380);
+        ctx.fillText(choosePlayer2, canvas.width/2, 410);
+
+        ctx.strokeStyle = '#ccc';
+        ctx.lineWidth = 1;
+        ctx.strokeText(choosePlayer, canvas.width/2, 380);
+        ctx.strokeText(choosePlayer2, canvas.width/2, 410);
+
+        function loadRender() {
+            for (col = 0; col < 5; col++) {
+                ctx.drawImage(Resources.get('images/stone-block.png'), col * 101, 410);
+            }
+            selectPlayer.render();
+            for (let i = 0; i < characters.length; i++) {
+                ctx.drawImage(Resources.get(characters[i]), i * 101, 410)
+            }
+        }
+        loadRender();
+     }
+
+     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
@@ -174,7 +245,19 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png',
+        'images/Heart.png',
+        'images/Selector.png',
+        'images/Star.png',
+        'images/arrows.svg',
+        'images/field.png'
     ]);
     Resources.onReady(init);
 

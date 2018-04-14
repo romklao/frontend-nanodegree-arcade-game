@@ -1,6 +1,7 @@
 'use strict';
+
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+let Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
@@ -41,11 +42,11 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y, speed) {
+var Player = function(x, y, speed, sprite) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = sprite;
 }
 
 Player.prototype.update = function() {
@@ -91,37 +92,13 @@ Player.prototype.handleInput = function(keypress) {
 var allEnemies = [];
 
 var enemyPosition = [55, 110, 170, 230];
-var player = new Player(200, 400, 50);
-
-function createPlayers() {
-    let playersList = [
-        'images/char-boy.png',
-        'images/char-cat-girl.png',
-        'images/char-horn-girl.png',
-        'images/char-pink-girl.png',
-        'images/char-princess-girl.png',
-    ];
-
-    let listWrap = document.createElement('ul');
-    listWrap.className = 'players';
-
-    for (let i = 0; i < playersList.length; i++) {
-        let listItem = document.createElement('li');
-        listItem.className = 'playerList';
-
-        let playerImage = document.createElement('img');
-        playerImage.setAttribute('src', playersList[i]);
-
-        listItem.appendChild(playerImage);
-        listWrap.appendChild(listItem);
-    }
-    document.body.appendChild(listWrap);
-}
+var player = new Player(200, 400, 50, 'images/char-boy.png');
+var selectPlayer = new SelectPlayer();
 
 enemyPosition.forEach((position) => {
     var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
     allEnemies.push(enemy);
-})
+});
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -130,15 +107,17 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        13: 'enter',
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    if (play === false) {
+        selectPlayer.handleInput(allowedKeys[e.keyCode]);
+    } else {
+        player.handleInput(allowedKeys[e.keyCode]);
+    }
 });
 
-document.addEventListener('DOMContentLoaded', function(){
-    createPlayers();
-});
 
 
 

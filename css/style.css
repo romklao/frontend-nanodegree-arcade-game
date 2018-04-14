@@ -2,21 +2,5 @@ body {
     text-align: center;
 }
 
-li {
-    list-style: none;
-}
 
-.playerList img {
-    width: 4vw;
-    height: 6vw;
-}
 
-.canvas,
-.players {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.players {
-    padding: 30px 20px;
-}
