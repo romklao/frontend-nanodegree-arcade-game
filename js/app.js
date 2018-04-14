@@ -19,8 +19,8 @@ var SelectPlayer = function() {
 }
 
 // Get input from a player when they move selector
-SelectPlayer.prototype.handleInput = function(key) {
-    switch (key) {
+SelectPlayer.prototype.handleInput = function(keypress) {
+    switch (keypress) {
         case 'left':
             this.col > 0 ? (this.col--, this.x = this.col * 101) : this.col;
             break;
@@ -29,7 +29,7 @@ SelectPlayer.prototype.handleInput = function(key) {
             break;
         case 'enter':
             selectedChar = this.col;
-            console.log(selectedChar);
+            console.log(characters[selectedChar]);
             play = true;
     }
 };
@@ -83,11 +83,10 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y, speed, sprite) {
+var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = sprite;
 }
 
 Player.prototype.update = function() {
@@ -107,7 +106,7 @@ Player.prototype.update = function() {
 }
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(keypress) {
@@ -130,11 +129,11 @@ Player.prototype.handleInput = function(keypress) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [];
 
-var enemyPosition = [55, 110, 170, 230];
-var player = new Player(200, 400, 50, 'images/char-boy.png');
+var player = new Player(200, 400, 50);
 var selectPlayer = new SelectPlayer();
+var allEnemies = [];
+var enemyPosition = [55, 110, 170, 230];
 
 enemyPosition.forEach((position) => {
     var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
