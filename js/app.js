@@ -40,6 +40,25 @@ SelectPlayer.prototype.render = function() {
     ctx.restore();
 }
 
+var Item = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.originalPosition = [x,y];
+    this.width = 80;
+    this.height = 110;
+};
+
+Item.prototype.reset = function() {
+    this.x = this.originalPosition[0];
+    this.y = this.originalPosition[1];
+};
+
+Item.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
+}
+
+
+
 // Enemies our player must avoid
 let Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
