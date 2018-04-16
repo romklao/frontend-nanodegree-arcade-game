@@ -57,7 +57,21 @@ Item.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 }
 
+var Heart = function(x, y, originalPosition, width, height) {
+    Item.call(this, x, y, originalPosition, width, height);
+    this.sprite = 'images/Heart.png';
+}
 
+Heart.prototype = Object.create(Item.prototype);
+
+var hearts = [];
+
+var heart1 = new Heart(110, 280);
+var heart2 = new Heart(415, 195);
+
+hearts.push(heart1, heart2);
+
+var collectedHearts = [];
 
 // Enemies our player must avoid
 let Enemy = function(x, y, speed) {
