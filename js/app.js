@@ -14,7 +14,7 @@ var selectedChar;
 var SelectPlayer = function() {
     this.col = 0;
     this.x = this.col;
-    this.y = 370;
+    this.y = 395;
     this.sprite = 'images/Selector.png';
 }
 
@@ -29,7 +29,6 @@ SelectPlayer.prototype.handleInput = function(keypress) {
             break;
         case 'enter':
             selectedChar = this.col;
-            console.log(characters[selectedChar]);
             play = true;
     }
 };
@@ -48,6 +47,8 @@ let Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.width = 100;
+    this.height = 160;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -65,20 +66,20 @@ Enemy.prototype.update = function(dt) {
         this.x = -100;
         this.speed = 100 + Math.floor(Math.random() * 480)
     }
-    if (player.x < this.x + 40 &&
-        player.x + 40 > this.x &&
-        player.y < this.y + 40 &&
-        player.y + 40 > this.y) {
-
-        player.x = 200;
-        player.y = 400;
-    }
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
+
+var enemies = [];
+var enemyPosition = [70, 150, 230, 320];
+
+enemyPosition.forEach((position) => {
+    var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
+    enemies.push(enemy);
+});
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -86,27 +87,34 @@ Enemy.prototype.render = function() {
 var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.width = 100;
+    this.height = 150;
+    this.speed = 50;
+    this.lives = 5;
+    this.scores = 0;
 }
 
 Player.prototype.update = function() {
     if (this.y > 400) {
-        this.y = 400;
+        this.y = 420;
     }
-    if (this.x > 400) {
-        this.x = 400;
+    if (this.x > 403) {
+        this.x = 403;
     }
     if (this.x < 0) {
         this.x = 0;
     }
-    if(this.y < 0) {
-        this.x = 200;
-        this.y = 400;
+    if (this.y < 0) {
+        this.x = 203;
+        this.y = 420;
+
+        this.scores += 10000;
+        document.getElementById('scores').innerHTML = this.scores.toString();
+
     }
-}
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y);
+    ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
 };
 
 Player.prototype.handleInput = function(keypress) {
@@ -115,13 +123,13 @@ Player.prototype.handleInput = function(keypress) {
             this.x -= this.speed + 50;
             break;
         case 'up':
-            this.y -= this.speed + 30;
+            this.y -= this.speed + 32;
             break;
         case 'right':
             this.x += this.speed + 50;
             break;
         case 'down':
-            this.y += this.speed + 30;
+            this.y += this.speed + 32;
             break;
     }
 };
@@ -130,15 +138,8 @@ Player.prototype.handleInput = function(keypress) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var player = new Player(200, 400, 50);
+var player = new Player(203, 420);
 var selectPlayer = new SelectPlayer();
-var allEnemies = [];
-var enemyPosition = [55, 110, 170, 230];
-
-enemyPosition.forEach((position) => {
-    var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
-    allEnemies.push(enemy);
-});
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
