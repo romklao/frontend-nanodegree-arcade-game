@@ -73,6 +73,23 @@ hearts.push(heart1, heart2);
 
 var collectedHearts = [];
 
+var Gem = function(x, y, originalPosition, width, height) {
+    Item.call(this, x, y, originalPosition, width, height);
+    this.sprite = 'images/Gem Blue.png';
+};
+
+Gem.prototype = Object.create(Item.prototype);
+
+var gems = [];
+
+var gem1 = new Gem(315, 350);
+var gem2 = new Gem(212, 100);
+var gem3 = new Gem(10, 185);
+
+gems.push(gem1, gem2, gem3);
+
+var collectedGems = [];
+
 // Enemies our player must avoid
 let Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
