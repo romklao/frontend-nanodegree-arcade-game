@@ -1,6 +1,58 @@
+html,
 body {
-    text-align: center;
+    height: 100%;
 }
 
+body {
+    margin: 0;
+    text-align: center;
+    font-family: Black Ops One;
+    background-color: #022748;
+}
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.game-name {
+    padding-top: 10px;
+    font-size: 40px;
+    color: #c4d5ec;
+}
+
+#score-panel {
+    width: 505px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#score-panel p {
+    display: inline-block;
+    color: #c5ddf3;
+}
+
+.heart {
+    width: 40px;
+    height: 60px;
+    margin: 0 35px 0 15px;
+}
+
+.gem {
+    margin: 0px 35px 0 50px;
+    width: 40px;
+    height: 65px;
+}
+
+#lives,
+#scores {
+    font-size: 40px;
+}
+
+.canvas {
+    margin: 0;
+/*    background: cadetblue;
+*/    border-radius: 5px;
+}
 
