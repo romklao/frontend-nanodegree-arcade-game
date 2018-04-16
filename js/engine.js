@@ -92,7 +92,7 @@ var Engine = (function(global) {
      */
     function updateEntities(dt) {
         if (play === true) {
-            allEnemies.forEach(function(enemy) {
+            enemies.forEach(function(enemy) {
             enemy.update(dt);
             });
         }
@@ -110,13 +110,17 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         if (play === true) {
+            document.getElementById('score-panel').hidden = false;
+            ctx.fillStyle = '#022748';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
             var rowImages = [
                 'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
+                'images/grass-block.png',   // Row 1 of 3 of stone
+                'images/grass-block.png',   // Row 2 of 3 of stone
+                'images/grass-block.png',   // Row 3 of 3 of stone
                 'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/stone-block.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -155,10 +159,15 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
+        hearts.forEach(function(heart) {
+            heart.render();
+        });
+        gems.forEach(function(gem) {
+            gem.render();
+        });
+        enemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
     }
 
@@ -166,24 +175,28 @@ var Engine = (function(global) {
      *T: add instructions, game info, etc */
 
      function startScreen() {
-        ctx.drawImage(Resources.get('images/field.png'), canvas.width, 606);
+
+        document.getElementById('score-panel').hidden = true;
+        ctx.fillStyle = "cadetblue";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //ctx.drawImage(Resources.get('images/field.png'), canvas.width, 606);
 
         /***** Game Description *****/
         let gameDescription = 'Collect two Gems to gain one live';
         let gameDescriptionTwo = 'Reach the water to win';
-        let gameDescriptionThree = 'Collect one Hearts to gain one live';
+        let gameDescriptionThree = 'Collect one Heart to gain one live';
 
         ctx.font = 'bold 25px Verdana';
         ctx.textAlign = 'center';
 
-        ctx.fillStyle = '#086593';
-        ctx.fillText(gameDescription, canvas.width/2, 78);
+        ctx.fillStyle = '#022748';
+        ctx.fillText(gameDescription, canvas.width/2, 75);
         ctx.fillText(gameDescriptionTwo, canvas.width/2, 110);
         ctx.fillText(gameDescriptionThree, canvas.width/2, 145);
 
         ctx.strokeStyle = '#ccc';
         ctx.lineWidth = 1;
-        ctx.strokeText(gameDescription, canvas.width/2, 78);
+        ctx.strokeText(gameDescription, canvas.width/2, 75);
         ctx.strokeText(gameDescriptionTwo, canvas.width/2, 110);
         ctx.strokeText(gameDescriptionThree, canvas.width/2, 145);
 
@@ -192,14 +205,14 @@ var Engine = (function(global) {
         ctx.font = 'bold 25px Verdana';
         ctx.textAlign = 'center';
 
-        ctx.fillStyle = '#086593';
+        ctx.fillStyle = '#022748';
         ctx.fillText(move, canvas.width/2, 210);
 
         ctx.strokeStyle = '#ccc';
         ctx.lineWidth = 1;
         ctx.strokeText(move, canvas.width/2, 210);
 
-        //ctx.drawImage(Resources.get('images/arrows.svg'), 50, 100);
+        ctx.drawImage(Resources.get('images/arrows.svg'), 190, 240, 130, 120);
 
         /***** Character section *****/
         let choosePlayer = 'Choose your player';
@@ -207,22 +220,22 @@ var Engine = (function(global) {
         ctx.font = 'bold 25px Verdana';
         ctx.textAlign = 'center';
 
-        ctx.fillStyle = '#086593';
-        ctx.fillText(choosePlayer, canvas.width/2, 380);
-        ctx.fillText(choosePlayer2, canvas.width/2, 410);
+        ctx.fillStyle = '#022748';
+        ctx.fillText(choosePlayer, canvas.width/2, 400);
+        ctx.fillText(choosePlayer2, canvas.width/2, 440);
 
         ctx.strokeStyle = '#ccc';
         ctx.lineWidth = 1;
-        ctx.strokeText(choosePlayer, canvas.width/2, 380);
-        ctx.strokeText(choosePlayer2, canvas.width/2, 410);
+        ctx.strokeText(choosePlayer, canvas.width/2, 400);
+        ctx.strokeText(choosePlayer2, canvas.width/2, 440);
 
         function loadRender() {
             for (col = 0; col < 5; col++) {
-                ctx.drawImage(Resources.get('images/stone-block.png'), col * 101, 410);
+                ctx.drawImage(Resources.get('images/stone-block.png'), col * 101, 435);
             }
             selectPlayer.render();
             for (let i = 0; i < characters.length; i++) {
-                ctx.drawImage(Resources.get(characters[i]), i * 101, 410)
+                ctx.drawImage(Resources.get(characters[i]), i * 101, 435)
             }
         }
         loadRender();
