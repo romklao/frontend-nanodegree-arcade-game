@@ -11,6 +11,9 @@ var play = false;
 var selectedChar;
 
 var PlayGame = function() {
+    this.gainLifeSound = new Audio('audio/jingle-achievement.wav');
+    this.getGemSound = new Audio('audio/collect-point.wav');
+    this.loseLifeSound = new Audio('audio/hero-death.wav');
 }
 
 PlayGame.prototype.lose = function() {
@@ -278,6 +281,9 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(keypress) {
+    if (this.dead) {
+        return;
+    }
     switch (keypress) {
         case 'left':
             this.x -= this.speed + 50;
