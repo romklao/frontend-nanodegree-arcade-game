@@ -266,23 +266,9 @@ Player.prototype.getHeart = function() {
             hearts[i].y = 1000;
         }
     }
-}
+};
 
-Player.prototype.update = function() {
-    if (this.y > 400) {
-        this.y = 420;
-    }
-    if (this.x > 403) {
-        this.x = 403;
-    }
-    if (this.x < 0) {
-        this.x = 0;
-    }
-    player.reachWater();
-    player.checkDead();
-    player.getHeart();
-
-
+Player.prototype.getGemScore = function() {
     for (var i = 0; i < gems.length; i++) {
         if (this.x < gems[i].x &&
             this.x + this.width > gems[i].x &&
@@ -304,6 +290,22 @@ Player.prototype.update = function() {
             gems[i].y = 1000;
         }
     }
+};
+
+Player.prototype.update = function() {
+    if (this.y > 400) {
+        this.y = 420;
+    }
+    if (this.x > 403) {
+        this.x = 403;
+    }
+    if (this.x < 0) {
+        this.x = 0;
+    }
+    player.reachWater();
+    player.checkDead();
+    player.getHeart();
+    player.getGemScore();
 };
 
 Player.prototype.render = function() {
