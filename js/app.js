@@ -227,6 +227,11 @@ Player.prototype.update = function() {
             this.lives += 1;
             document.getElementById('lives').innerHTML = this.lives.toString();
 
+            this.gainLife = true;
+            setTimeout(function() {
+                player.gainLife = false;
+            }, 800);
+
             hearts[i].x = 1000;
             hearts[i].y = 1000;
         }
