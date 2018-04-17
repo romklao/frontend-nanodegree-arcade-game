@@ -243,19 +243,7 @@ Player.prototype.checkDead = function() {
     }
 };
 
-Player.prototype.update = function() {
-    if (this.y > 400) {
-        this.y = 420;
-    }
-    if (this.x > 403) {
-        this.x = 403;
-    }
-    if (this.x < 0) {
-        this.x = 0;
-    }
-    player.reachWater();
-    player.checkDead();
-
+Player.prototype.getHeart = function() {
     for(var i = 0; i < hearts.length; i++) {
         if (this.x < hearts[i].x &&
             this.x + this.width > hearts[i].x &&
@@ -265,6 +253,7 @@ Player.prototype.update = function() {
             playGame.gainLifeSound.play();
 
             collectedHearts.push([hearts[i].x, hearts[i].y]);
+
             this.lives += 1;
             document.getElementById('lives').innerHTML = this.lives.toString();
 
@@ -277,7 +266,24 @@ Player.prototype.update = function() {
             hearts[i].y = 1000;
         }
     }
-    for (i = 0; i < gems.length; i++) {
+}
+
+Player.prototype.update = function() {
+    if (this.y > 400) {
+        this.y = 420;
+    }
+    if (this.x > 403) {
+        this.x = 403;
+    }
+    if (this.x < 0) {
+        this.x = 0;
+    }
+    player.reachWater();
+    player.checkDead();
+    player.getHeart();
+
+
+    for (var i = 0; i < gems.length; i++) {
         if (this.x < gems[i].x &&
             this.x + this.width > gems[i].x &&
             this.y < gems[i].y &&
