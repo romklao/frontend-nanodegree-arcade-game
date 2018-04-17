@@ -182,9 +182,9 @@ var Engine = (function(global) {
         //ctx.drawImage(Resources.get('images/field.png'), canvas.width, 606);
 
         /***** Game Description *****/
-        let gameDescription = 'Collect two Gems to gain one live';
-        let gameDescriptionTwo = 'Reach the water to win';
-        let gameDescriptionThree = 'Collect one Heart to gain one live';
+        let gameDescription = 'Collect the Gem to gain 1000';
+        let gameDescriptionTwo = 'Reach the water to gain 10000';
+        let gameDescriptionThree = 'Collect one Heart to gain one life';
 
         ctx.font = 'bold 25px Verdana';
         ctx.textAlign = 'center';
