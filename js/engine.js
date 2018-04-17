@@ -183,7 +183,7 @@ var Engine = (function(global) {
 
         /***** Game Description *****/
         let gameDescription = 'Collect the Gem to gain 1000';
-        let gameDescriptionTwo = 'Reach the water to gain 10000';
+        let gameDescriptionTwo = 'Reach the water to gain 5000';
         let gameDescriptionThree = 'Collect one Heart to gain one life';
 
         ctx.font = 'bold 25px Verdana';
@@ -212,7 +212,7 @@ var Engine = (function(global) {
         ctx.lineWidth = 1;
         ctx.strokeText(move, canvas.width/2, 210);
 
-        ctx.drawImage(Resources.get('images/arrows.svg'), 190, 240, 130, 120);
+        ctx.drawImage(Resources.get('images/arrows.svg'), 185, 240, 130, 120);
 
         /***** Character section *****/
         let choosePlayer = 'Choose your player';
