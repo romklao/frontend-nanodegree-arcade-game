@@ -10,34 +10,6 @@ var characters = [ //Array of URLs for player and NPC sprites
 var play = false;
 var selectedChar;
 
-var PlayGame = function() {
-    this.gainLifeSound = new Audio('audio/jingle-achievement.wav');
-    this.getGemSound = new Audio('audio/collect-point.wav');
-    this.loseLifeSound = new Audio('audio/death.wav');
-}
-
-PlayGame.prototype.lose = function() {
-    alert(`GAME OVER! Your score is ${player.scores}.`);
-    this.resetGame();
-};
-
-PlayGame.prototype.resetGame = function() {
-    player.reset();
-
-    collectedHearts = [];
-    collectedGems = [];
-
-    hearts.forEach(function(heart) {
-        heart.reset();
-    });
-
-    gems.forEach(function(gem) {
-        gem.reset();
-    });
-}
-
-var playGame = new PlayGame();
-
 // Create SelectPlayer to allow a player to choose a character
 var SelectPlayer = function() {
     this.col = 0;
@@ -160,6 +132,34 @@ enemyPosition.forEach((position) => {
     enemies.push(enemy);
 });
 
+var PlayGame = function() {
+    this.gainLifeSound = new Audio('audio/jingle-achievement.wav');
+    this.getGemSound = new Audio('audio/collect-point.wav');
+    this.loseLifeSound = new Audio('audio/death.wav');
+}
+
+PlayGame.prototype.lose = function() {
+    alert(`GAME OVER! Your score is ${player.score}.`);
+    this.resetGame();
+};
+
+PlayGame.prototype.resetGame = function() {
+    player.reset();
+
+    collectedHearts = [];
+    collectedGems = [];
+
+    hearts.forEach(function(heart) {
+        heart.reset();
+    });
+
+    gems.forEach(function(gem) {
+        gem.reset();
+    });
+}
+
+var playGame = new PlayGame();
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -169,8 +169,8 @@ var Player = function() {
     this.width = 100;
     this.height = 150;
     this.speed = 50;
-    this.lives = 5;
-    this.scores = 0;
+    this.lives = 3;
+    this.score = 0;
     this.sprite = characters[selectedChar];
     this.dead = false;
     this.getGem = false;
@@ -180,18 +180,20 @@ var Player = function() {
 Player.prototype.reset = function() {
     this.x = 203;
     this.y = 420;
-    this.lives = 5;
-    this.scores = 0;
+    this.lives = 3;
+    this.score = 0;
     this.sprite = characters[selectedChar];
 
     document.getElementById('lives').innerHTML = this.lives.toString();
-    document.getElementById('scores').innerHTML = this.scores.toString();
+    document.getElementById('score').innerHTML = this.score.toString();
 }
 
 Player.prototype.collide = function() {
     if (this.lives === 1) {
         this.lives -= 1;
+        this.score -= 2000;
         document.getElementById('lives').innerHTML = this.lives.toString();
+        document.getElementById('score').innerHTML = this.score.toString();
 
         setTimeout(function() {
             playGame.lose();
@@ -199,7 +201,15 @@ Player.prototype.collide = function() {
 
     } else if (this.lives > 1) {
         this.lives -= 1;
+        this.score -= 2000;
         document.getElementById('lives').innerHTML = this.lives.toString();
+        document.getElementById('score').innerHTML = this.score.toString();
+
+        if (this.score < 0) {
+            setTimeout(function() {
+                playGame.lose();
+            }, 50);
+        }
     }
 };
 
@@ -207,8 +217,8 @@ Player.prototype.reachWater = function() {
     if (this.y < 10) {
         playGame.getGemSound.play();
 
-        this.scores += 5000;
-        document.getElementById('scores').innerHTML = this.scores.toString();
+        this.score += 5000;
+        document.getElementById('score').innerHTML = this.score.toString();
 
         this.getGem = true;
         setTimeout(function() {
@@ -278,8 +288,8 @@ Player.prototype.getGemScore = function() {
             playGame.getGemSound.play();
 
             collectedGems.push(gems[i].x, gems[i].y);
-            this.scores += 1000;
-            document.getElementById('scores').innerHTML = this.scores.toString();
+            this.score += 1000;
+            document.getElementById('score').innerHTML = this.score.toString();
 
             this.getGem = true;
             setTimeout(function() {
@@ -366,6 +376,8 @@ document.addEventListener('keyup', function(e) {
         player.handleInput(allowedKeys[e.keyCode]);
     }
 });
+
+
 
 
 
