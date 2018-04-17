@@ -145,6 +145,11 @@ PlayGame.prototype.lose = function() {
     this.resetGame();
 };
 
+PlayGame.prototype.win = function() {
+    alert(`You are the winner! Your score is ${player.score}.`);
+    this.resetGame();
+};
+
 PlayGame.prototype.resetGame = function() {
     player.reset();
 
@@ -158,7 +163,7 @@ PlayGame.prototype.resetGame = function() {
     gems.forEach(function(gem) {
         gem.reset();
     });
-}
+};
 
 var playGame = new PlayGame();
 
@@ -304,6 +309,15 @@ Player.prototype.getGemScore = function() {
     }
 };
 
+Player.prototype.winTheGame = function() {
+    if (this.score >= 100000) {
+        document.getElementById('score').innerHTML = this.score.toString();
+        setTimeout(function() {
+            playGame.win();
+        }, 10);
+    }
+};
+
 Player.prototype.update = function() {
     if (this.y > 400) {
         this.y = 420;
@@ -318,6 +332,7 @@ Player.prototype.update = function() {
     player.checkDead();
     player.getHeart();
     player.getGemScore();
+    player.winTheGame();
 };
 
 Player.prototype.render = function() {
