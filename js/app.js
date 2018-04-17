@@ -208,6 +208,13 @@ Player.prototype.update = function() {
             this.x > enemies[i].x &&
             this.y < enemies[i].y + 40 &&
             this.y > enemies[i].y) {
+
+            this.dead = true;
+            setTimeout(function() {
+                player.x = 203;
+                player.y = 420;
+                player.dead = false;
+            }, 800);
         }
     }
     for(i = 0; i < hearts.length; i++) {
