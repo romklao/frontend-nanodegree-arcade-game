@@ -10,6 +10,35 @@ var characters = [ //Array of URLs for player and NPC sprites
 var play = false;
 var selectedChar;
 
+var PlayGame = function() {
+    this.gainLife = 'images/Heart.png';
+    this.gainGem = 'images/diamond.svg';
+    this.loseLife = 'images/cancel.svg';
+}
+
+PlayGame.prototype.lose = function() {
+    alert('GAME OVER');
+    this.resetGame();
+};
+
+PlayGame.prototype.resetGame = function() {
+    player.reset();
+
+    collectedHearts = [];
+    collectedGems = [];
+
+    hearts.forEach(function(heart) {
+        heart.reset();
+    });
+
+    gems.forEach(function(gem) {
+        gem.reset();
+    });
+}
+
+var playGame = new PlayGame();
+
+
 // Create SelectPlayer to allow a player to choose a character
 var SelectPlayer = function() {
     this.col = 0;
@@ -30,6 +59,7 @@ SelectPlayer.prototype.handleInput = function(keypress) {
         case 'enter':
             selectedChar = this.col;
             play = true;
+            playGame.resetGame();
     }
 };
 
@@ -134,14 +164,26 @@ enemyPosition.forEach((position) => {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y, speed) {
-    this.x = x;
-    this.y = y;
+var Player = function() {
+    this.x = 203;
+    this.y = 420;
     this.width = 100;
     this.height = 150;
     this.speed = 50;
     this.lives = 5;
     this.scores = 0;
+    this.sprite = characters[selectedChar];
+}
+
+Player.prototype.reset = function() {
+    this.x = 203;
+    this.y = 420;
+    this.lives = 5;
+    this.scores = 0;
+    this.sprite = characters[selectedChar];
+
+    document.getElementById('lives').innerHTML = this.lives.toString();
+    document.getElementById('scores').innerHTML = this.scores.toString();
 }
 
 Player.prototype.update = function() {
@@ -158,7 +200,7 @@ Player.prototype.update = function() {
         this.x = 203;
         this.y = 420;
 
-        this.scores += 10000;
+        this.scores += 5000;
         document.getElementById('scores').innerHTML = this.scores.toString();
     }
     for(var i = 0; i < enemies.length; i++) {
@@ -226,7 +268,7 @@ Player.prototype.handleInput = function(keypress) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var player = new Player(203, 420);
+var player = new Player();
 var selectPlayer = new SelectPlayer();
 
 // This listens for key presses and sends the keys to your
