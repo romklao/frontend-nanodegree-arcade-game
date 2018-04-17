@@ -246,6 +246,11 @@ Player.prototype.update = function() {
             this.scores += 1000;
             document.getElementById('scores').innerHTML = this.scores.toString();
 
+            this.gainGem = true;
+            setTimeout(function() {
+                player.gainGem = false;
+            }, 800);
+
             gems[i].x = 1000;
             gems[i].y = 1000;
         }
