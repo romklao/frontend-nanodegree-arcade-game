@@ -13,7 +13,7 @@ var selectedChar;
 var PlayGame = function() {
     this.gainLifeSound = new Audio('audio/jingle-achievement.wav');
     this.getGemSound = new Audio('audio/collect-point.wav');
-    this.loseLifeSound = new Audio('audio/hero-death.wav');
+    this.loseLifeSound = new Audio('audio/death.wav');
 }
 
 PlayGame.prototype.lose = function() {
@@ -199,6 +199,8 @@ Player.prototype.update = function() {
         this.x = 0;
     }
     if (this.y < 10) {
+        playGame.getGemSound.play();
+
         this.scores += 5000;
         document.getElementById('scores').innerHTML = this.scores.toString();
 
@@ -216,6 +218,7 @@ Player.prototype.update = function() {
             this.y < enemies[i].y + 40 &&
             this.y > enemies[i].y) {
 
+            playGame.loseLifeSound.play();
             this.dead = true;
             setTimeout(function() {
                 player.x = 203;
@@ -229,6 +232,8 @@ Player.prototype.update = function() {
             this.x + this.width > hearts[i].x &&
             this.y < hearts[i].y &&
             this.y + this.height > hearts[i].y) {
+
+            playGame.gainLifeSound.play();
 
             collectedHearts.push([hearts[i].x, hearts[i].y]);
             this.lives += 1;
@@ -248,6 +253,8 @@ Player.prototype.update = function() {
             this.x + this.width > gems[i].x &&
             this.y < gems[i].y &&
             this.y + this.height > gems[i].y) {
+
+            playGame.getGemSound.play();
 
             collectedGems.push(gems[i].x, gems[i].y);
             this.scores += 1000;
