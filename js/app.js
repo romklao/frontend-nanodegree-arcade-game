@@ -30,6 +30,7 @@ SelectPlayer.prototype.handleInput = function(keypress) {
         case 'enter':
             selectedChar = this.col;
             play = true;
+            playGame.select.play();
             playGame.resetGame();
     }
 };
@@ -136,6 +137,7 @@ var PlayGame = function() {
     this.gainLifeSound = new Audio('audio/jingle-achievement.wav');
     this.getGemSound = new Audio('audio/collect-point.wav');
     this.loseLifeSound = new Audio('audio/death.wav');
+    this.select = new Audio('audio/pickup.wav');
 }
 
 PlayGame.prototype.lose = function() {
@@ -197,7 +199,7 @@ Player.prototype.collide = function() {
 
         setTimeout(function() {
             playGame.lose();
-        }, 50);
+        }, 800);
 
     } else if (this.lives > 1) {
         this.lives -= 1;
@@ -208,7 +210,7 @@ Player.prototype.collide = function() {
         if (this.score < 0) {
             setTimeout(function() {
                 playGame.lose();
-            }, 50);
+            }, 800);
         }
     }
 };
