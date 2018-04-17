@@ -182,23 +182,26 @@ var Engine = (function(global) {
         //ctx.drawImage(Resources.get('images/field.png'), canvas.width, 606);
 
         /***** Game Description *****/
-        let gameDescription = 'Collect the Gem to gain 1000';
+        let gameDescription = 'Collect one Gem to gain 1000';
         let gameDescriptionTwo = 'Reach the water to gain 5000';
         let gameDescriptionThree = 'Collect one Heart to gain one life';
+        let gameDescriptionFour = 'Collect 100000 to win the game';
 
         ctx.font = 'bold 25px Verdana';
         ctx.textAlign = 'center';
 
         ctx.fillStyle = '#022748';
-        ctx.fillText(gameDescription, canvas.width/2, 75);
-        ctx.fillText(gameDescriptionTwo, canvas.width/2, 110);
-        ctx.fillText(gameDescriptionThree, canvas.width/2, 145);
+        ctx.fillText(gameDescription, canvas.width/2, 55);
+        ctx.fillText(gameDescriptionTwo, canvas.width/2, 90);
+        ctx.fillText(gameDescriptionThree, canvas.width/2, 125);
+        ctx.fillText(gameDescriptionFour, canvas.width/2, 160);
 
         ctx.strokeStyle = '#ccc';
         ctx.lineWidth = 1;
-        ctx.strokeText(gameDescription, canvas.width/2, 75);
-        ctx.strokeText(gameDescriptionTwo, canvas.width/2, 110);
-        ctx.strokeText(gameDescriptionThree, canvas.width/2, 145);
+        ctx.strokeText(gameDescription, canvas.width/2, 55);
+        ctx.strokeText(gameDescriptionTwo, canvas.width/2, 90);
+        ctx.strokeText(gameDescriptionThree, canvas.width/2, 125);
+        ctx.strokeText(gameDescriptionFour, canvas.width/2, 160);
 
         /****** Controls key ******/
         let move = 'Move the player';
