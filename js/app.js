@@ -37,8 +37,6 @@ PlayGame.prototype.resetGame = function() {
 }
 
 var playGame = new PlayGame();
-console.log(playGame);
-
 
 // Create SelectPlayer to allow a player to choose a character
 var SelectPlayer = function() {
@@ -207,7 +205,7 @@ Player.prototype.update = function() {
         this.gainGem = true;
         setTimeout(function() {
             player.gainGem = false;
-        }, 800);
+        }, 500);
 
         this.x = 203;
         this.y = 420;
@@ -239,7 +237,7 @@ Player.prototype.update = function() {
             this.gainLife = true;
             setTimeout(function() {
                 player.gainLife = false;
-            }, 800);
+            }, 500);
 
             hearts[i].x = 1000;
             hearts[i].y = 1000;
@@ -258,7 +256,7 @@ Player.prototype.update = function() {
             this.gainGem = true;
             setTimeout(function() {
                 player.gainGem = false;
-            }, 800);
+            }, 500);
 
             gems[i].x = 1000;
             gems[i].y = 1000;
