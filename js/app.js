@@ -11,9 +11,6 @@ var play = false;
 var selectedChar;
 
 var PlayGame = function() {
-    this.gainLife = 'images/Heart.png';
-    this.gainGem = 'images/diamond.svg';
-    this.loseLife = 'images/cancel.svg';
 }
 
 PlayGame.prototype.lose = function() {
@@ -37,6 +34,7 @@ PlayGame.prototype.resetGame = function() {
 }
 
 var playGame = new PlayGame();
+console.log(playGame);
 
 
 // Create SelectPlayer to allow a player to choose a character
@@ -173,6 +171,9 @@ var Player = function() {
     this.lives = 5;
     this.scores = 0;
     this.sprite = characters[selectedChar];
+    this.dead = false;
+    this.gainGem = false;
+    this.gainLife = false;
 }
 
 Player.prototype.reset = function() {
@@ -196,21 +197,17 @@ Player.prototype.update = function() {
     if (this.x < 0) {
         this.x = 0;
     }
-    if (this.y < 0) {
-        this.x = 203;
-        this.y = 420;
-
+    if (this.y < 10) {
         this.scores += 5000;
         document.getElementById('scores').innerHTML = this.scores.toString();
+        this.x = 203;
+        this.y = 420;
     }
     for(var i = 0; i < enemies.length; i++) {
         if (this.x < enemies[i].x + 50 &&
             this.x > enemies[i].x &&
             this.y < enemies[i].y + 40 &&
             this.y > enemies[i].y) {
-
-            this.x = 203;
-            this.y = 420;
         }
     }
     for(i = 0; i < hearts.length; i++) {
@@ -244,7 +241,17 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
+    if (this.dead) {
+        ctx.drawImage(Resources.get('images/cancel.svg'), this.x + 10, this.y + 45, 80, 80);
+    } else if (this.gainGem) {
+        ctx.drawImage(Resources.get('images/diamond.svg'), this.x + 20, this.y - 15, 60, 60);
+        ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
+    } else if (this.gainLife) {
+        ctx.drawImage(Resources.get('images/Heart.png'), this.x + 20, this.y - 15, 60, 60);
+        ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
+    } else {
+        ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
+    }
 };
 
 Player.prototype.handleInput = function(keypress) {
