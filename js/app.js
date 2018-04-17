@@ -17,7 +17,7 @@ var PlayGame = function() {
 }
 
 PlayGame.prototype.lose = function() {
-    alert('GAME OVER');
+    alert(`GAME OVER! Your score is ${player.scores}.`);
     this.resetGame();
 };
 
@@ -173,7 +173,7 @@ var Player = function() {
     this.scores = 0;
     this.sprite = characters[selectedChar];
     this.dead = false;
-    this.gainGem = false;
+    this.getGem = false;
     this.gainLife = false;
 }
 
@@ -187,6 +187,21 @@ Player.prototype.reset = function() {
     document.getElementById('lives').innerHTML = this.lives.toString();
     document.getElementById('scores').innerHTML = this.scores.toString();
 }
+
+Player.prototype.collide = function() {
+    if (this.lives === 1) {
+        this.lives -= 1;
+        document.getElementById('lives').innerHTML = this.lives.toString();
+
+        setTimeout(function() {
+            playGame.lose();
+        }, 50);
+
+    } else if (this.lives > 1) {
+        this.lives -= 1;
+        document.getElementById('lives').innerHTML = this.lives.toString();
+    }
+};
 
 Player.prototype.update = function() {
     if (this.y > 400) {
@@ -204,27 +219,32 @@ Player.prototype.update = function() {
         this.scores += 5000;
         document.getElementById('scores').innerHTML = this.scores.toString();
 
-        this.gainGem = true;
+        this.getGem = true;
         setTimeout(function() {
-            player.gainGem = false;
+            player.getGem = false;
         }, 500);
 
         this.x = 203;
         this.y = 420;
     }
-    for(var i = 0; i < enemies.length; i++) {
-        if (this.x < enemies[i].x + 50 &&
-            this.x > enemies[i].x &&
-            this.y < enemies[i].y + 40 &&
-            this.y > enemies[i].y) {
+    if (!this.dead) {
+        for(var i = 0; i < enemies.length; i++) {
+            if (this.x < enemies[i].x + 50 &&
+                this.x > enemies[i].x &&
+                this.y < enemies[i].y + 40 &&
+                this.y > enemies[i].y) {
 
-            playGame.loseLifeSound.play();
-            this.dead = true;
-            setTimeout(function() {
-                player.x = 203;
-                player.y = 420;
-                player.dead = false;
-            }, 800);
+                playGame.loseLifeSound.play();
+
+                this.dead = true;
+                setTimeout(function() {
+                    player.x = 203;
+                    player.y = 420;
+                    player.dead = false;
+                }, 800);
+
+                this.collide();
+            }
         }
     }
     for(i = 0; i < hearts.length; i++) {
@@ -260,9 +280,9 @@ Player.prototype.update = function() {
             this.scores += 1000;
             document.getElementById('scores').innerHTML = this.scores.toString();
 
-            this.gainGem = true;
+            this.getGem = true;
             setTimeout(function() {
-                player.gainGem = false;
+                player.getGem = false;
             }, 500);
 
             gems[i].x = 1000;
@@ -274,7 +294,7 @@ Player.prototype.update = function() {
 Player.prototype.render = function() {
     if (this.dead) {
         ctx.drawImage(Resources.get('images/cancel.svg'), this.x + 10, this.y + 45, 80, 80);
-    } else if (this.gainGem) {
+    } else if (this.getGem) {
         ctx.drawImage(Resources.get('images/diamond.svg'), this.x + 20, this.y - 15, 60, 60);
         ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
     } else if (this.gainLife) {
