@@ -203,16 +203,7 @@ Player.prototype.collide = function() {
     }
 };
 
-Player.prototype.update = function() {
-    if (this.y > 400) {
-        this.y = 420;
-    }
-    if (this.x > 403) {
-        this.x = 403;
-    }
-    if (this.x < 0) {
-        this.x = 0;
-    }
+Player.prototype.reachWater = function() {
     if (this.y < 10) {
         playGame.getGemSound.play();
 
@@ -227,6 +218,19 @@ Player.prototype.update = function() {
         this.x = 203;
         this.y = 420;
     }
+}
+
+Player.prototype.update = function() {
+    if (this.y > 400) {
+        this.y = 420;
+    }
+    if (this.x > 403) {
+        this.x = 403;
+    }
+    if (this.x < 0) {
+        this.x = 0;
+    }
+    player.reachWater();
     if (!this.dead) {
         for(var i = 0; i < enemies.length; i++) {
             if (this.x < enemies[i].x + 50 &&
