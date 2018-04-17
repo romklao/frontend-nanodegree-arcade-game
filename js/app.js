@@ -160,8 +160,46 @@ Player.prototype.update = function() {
 
         this.scores += 10000;
         document.getElementById('scores').innerHTML = this.scores.toString();
-
     }
+    for(var i = 0; i < enemies.length; i++) {
+        if (this.x < enemies[i].x + 50 &&
+            this.x > enemies[i].x &&
+            this.y < enemies[i].y + 40 &&
+            this.y > enemies[i].y) {
+
+            this.x = 203;
+            this.y = 420;
+        }
+    }
+    for(i = 0; i < hearts.length; i++) {
+        if (this.x < hearts[i].x &&
+            this.x + this.width > hearts[i].x &&
+            this.y < hearts[i].y &&
+            this.y + this.height > hearts[i].y) {
+
+            collectedHearts.push([hearts[i].x, hearts[i].y]);
+            this.lives += 1;
+            document.getElementById('lives').innerHTML = this.lives.toString();
+
+            hearts[i].x = 1000;
+            hearts[i].y = 1000;
+        }
+    }
+    for (i = 0; i < gems.length; i++) {
+        if (this.x < gems[i].x &&
+            this.x + this.width > gems[i].x &&
+            this.y < gems[i].y &&
+            this.y + this.height > gems[i].y) {
+
+            collectedGems.push(gems[i].x, gems[i].y);
+            this.scores += 1000;
+            document.getElementById('scores').innerHTML = this.scores.toString();
+
+            gems[i].x = 1000;
+            gems[i].y = 1000;
+        }
+    }
+};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
