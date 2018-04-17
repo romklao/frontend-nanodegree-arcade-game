@@ -270,7 +270,9 @@ var Engine = (function(global) {
         'images/Selector.png',
         'images/Star.png',
         'images/arrows.svg',
-        'images/field.png'
+        'images/field.png',
+        'images/diamond.svg',
+        'images/cancel.svg'
     ]);
     Resources.onReady(init);
 
