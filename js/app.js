@@ -200,6 +200,12 @@ Player.prototype.update = function() {
     if (this.y < 10) {
         this.scores += 5000;
         document.getElementById('scores').innerHTML = this.scores.toString();
+
+        this.gainGem = true;
+        setTimeout(function() {
+            player.gainGem = false;
+        }, 800);
+
         this.x = 203;
         this.y = 420;
     }
