@@ -298,9 +298,9 @@ Player.prototype.reachWater = function() {
 Player.prototype.checkDead = function() {
     if (!this.dead) {
         for(var i = 0; i < enemies.length; i++) {
-            if (this.x < enemies[i].x + 50 &&
+            if (this.x < enemies[i].x + 60 &&
                 this.x + 50> enemies[i].x &&
-                this.y < enemies[i].y + 50 &&
+                this.y < enemies[i].y + 60 &&
                 this.y + 50> enemies[i].y) {
 
                 playGame.loseLifeSound.play();
@@ -374,7 +374,7 @@ Player.prototype.collectGem = function() {
 
 // When a player reaches 30,000 points
 Player.prototype.winTheGame = function() {
-    if (this.score >= 30000) {
+    if (this.score >= 20000) {
         document.getElementById('score').innerHTML = this.score.toString();
 
         setTimeout(function() {
