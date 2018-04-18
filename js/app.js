@@ -1,16 +1,20 @@
 'use strict';
 
-var characters = [ //Array of URLs for player and NPC sprites
+//Array of URLs for player and NPC sprites
+var characters = [
     'images/char-boy.png',
     'images/char-cat-girl.png',
     'images/char-horn-girl.png',
     'images/char-pink-girl.png',
     'images/char-princess-girl.png'
 ];
+// Set play to false to use it later
 var play = false;
+
+// Declare selectedChar variable to use it when a user chooses a charactor
 var selectedChar;
 
-// Create SelectPlayer to allow a player to choose a character
+// Create SelectPlayer to allow a user to choose a character
 var SelectPlayer = function() {
     this.col = 0;
     this.x = this.col + 100;
@@ -28,9 +32,12 @@ SelectPlayer.prototype.handleInput = function(keypress) {
             this.col < 4 ? (this.col++, this.x = this.col * 101 + 100) : this.col;
             break;
         case 'enter':
+            // This will be used for Charactor's index later
             selectedChar = this.col;
             play = true;
+            // Play sound effect when a uasers selects a charactor
             playGame.select.play();
+            // After a charactor ie chose, redirect to play game
             playGame.resetGame();
     }
 };
@@ -38,9 +45,13 @@ SelectPlayer.prototype.handleInput = function(keypress) {
 // Selector render function
 SelectPlayer.prototype.render = function() {
     ctx.save();
+    // Show charactor in the game page
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.restore();
 }
+
+/****************** Super Class ******************/
+// Create Item class. This will be useful when include gems, rocks, hearts, etc.
 
 var Item = function(x, y) {
     this.x = x;
@@ -59,6 +70,9 @@ Item.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 }
 
+/****************** Sub-Class ******************/
+
+//Create Heart sub-class from Item class
 var Heart = function(x, y, originalPosition, width, height) {
     Item.call(this, x, y, originalPosition, width, height);
     this.sprite = 'images/Heart.png';
@@ -75,6 +89,7 @@ hearts.push(heart1, heart2);
 
 var collectedHearts = [];
 
+//Create Gem sub-class from Item class
 var Gem = function(x, y, originalPosition, width, height) {
     Item.call(this, x, y, originalPosition, width, height);
     this.sprite = 'images/Gem Blue.png';
@@ -93,6 +108,7 @@ gems.push(gem1, gem2, gem3, gem4);
 
 var collectedGems = [];
 
+//Create Rock sub-class from Item class
 var Rock = function(x, y, originalPosition, width, height) {
     Item.call(this, x, y, originalPosition, width, height);
     this.sprite = 'images/Rock.png';
@@ -138,7 +154,7 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     if (this.x > 707) {
-        this.x = -100;
+        this.x = -100;//Bugs teleport to starting point
         this.speed = 100 + Math.floor(Math.random() * 480)
     }
 };
@@ -148,14 +164,8 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
 
-var enemies = [];
-var enemyPosition = [70, 150, 230, 320];
-
-enemyPosition.forEach((position) => {
-    var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
-    enemies.push(enemy);
-});
-
+/************** PlayGame class ***************/
+/************** Start, Reset, Win, Lose *************/
 var PlayGame = function() {
     this.gainLifeSound = new Audio('audio/jingle-achievement.wav');
     this.getGemSound = new Audio('audio/collect-point.wav');
@@ -173,6 +183,7 @@ PlayGame.prototype.win = function() {
     this.resetGame();
 };
 
+// Reset the game when game over
 PlayGame.prototype.resetGame = function() {
     player.reset();
 
@@ -186,13 +197,16 @@ PlayGame.prototype.resetGame = function() {
     gems.forEach(function(gem) {
         gem.reset();
     });
+
+    rocks.forEach(function(rock) {
+        rock.reset();
+    })
 };
 
 var playGame = new PlayGame();
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// Player class requires an update(), render() and
+// a handleInput() method. This will track score, lives, dead
 var Player = function() {
     this.x = 304;
     this.y = 420;
@@ -219,6 +233,7 @@ Player.prototype.reset = function() {
     document.getElementById('score').innerHTML = this.score.toString();
 }
 
+// When a player collides with enemy
 Player.prototype.collide = function() {
     if (this.lives === 1) {
         this.lives -= 1;
@@ -244,6 +259,7 @@ Player.prototype.collide = function() {
     }
 };
 
+// When hit a rock, a player cannot move pass rocks
 Player.prototype.faceRock = function() {
     for(var i = 0; i < rocks.length; i++) {
         if (this.x < rocks[i].x + 50 &&
@@ -257,6 +273,7 @@ Player.prototype.faceRock = function() {
     }
 };
 
+// When a player reach water
 Player.prototype.reachWater = function() {
     if (this.y < 0) {
         playGame.getGemSound.play();
@@ -274,6 +291,7 @@ Player.prototype.reachWater = function() {
     }
 }
 
+// When a player collides with an enemy
 Player.prototype.checkDead = function() {
     if (!this.dead) {
         for(var i = 0; i < enemies.length; i++) {
@@ -297,6 +315,7 @@ Player.prototype.checkDead = function() {
     }
 };
 
+// Collect hearts to gain lives
 Player.prototype.getHeart = function() {
     for(var i = 0; i < hearts.length; i++) {
         if (this.x < hearts[i].x &&
@@ -322,6 +341,7 @@ Player.prototype.getHeart = function() {
     }
 };
 
+// Collect gems to increase points
 Player.prototype.collectGem = function() {
     for (var i = 0; i < gems.length; i++) {
         if (this.x < gems[i].x &&
@@ -346,6 +366,7 @@ Player.prototype.collectGem = function() {
     }
 };
 
+// When a player reaches 30,000 points
 Player.prototype.winTheGame = function() {
     if (this.score >= 30000) {
         document.getElementById('score').innerHTML = this.score.toString();
@@ -355,6 +376,7 @@ Player.prototype.winTheGame = function() {
     }
 };
 
+// Update all events occur
 Player.prototype.update = function() {
     if (this.y > 400) {
         this.y = 420;
@@ -373,6 +395,7 @@ Player.prototype.update = function() {
     player.winTheGame();
 };
 
+// Render in each condition
 Player.prototype.render = function() {
     if (this.dead) {
         ctx.drawImage(Resources.get('images/cancel.svg'), this.x + 10, this.y + 45, 80, 80);
@@ -387,6 +410,7 @@ Player.prototype.render = function() {
     }
 };
 
+// Press keys to move a charactor around the screen
 Player.prototype.handleInput = function(keypress) {
     if (this.dead) {
         return;
@@ -394,7 +418,6 @@ Player.prototype.handleInput = function(keypress) {
     switch (keypress) {
         case 'left':
             this.playerPosition.push([this.x, this.y]);
-            console.log(this.playerPosition);
             this.x -= 101;
             break;
         case 'up':
@@ -413,11 +436,20 @@ Player.prototype.handleInput = function(keypress) {
 };
 
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
+// Place all enemy objects in an array called enemies
 // Place the player object in a variable called player
+// Place selected charactor in a variable called selectPlayer
 
 var player = new Player();
 var selectPlayer = new SelectPlayer();
+
+var enemies = [];
+var enemyPosition = [70, 150, 230, 320];
+
+enemyPosition.forEach((position) => {
+    var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
+    enemies.push(enemy);
+});
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
