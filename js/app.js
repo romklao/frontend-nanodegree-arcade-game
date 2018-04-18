@@ -84,11 +84,12 @@ Gem.prototype = Object.create(Item.prototype);
 
 var gems = [];
 
-var gem1 = new Gem(315, 350);
+var gem1 = new Gem(414, 350);
 var gem2 = new Gem(212, 100);
 var gem3 = new Gem(10, 185);
+var gem4 = new Gem(617, 270);
 
-gems.push(gem1, gem2, gem3);
+gems.push(gem1, gem2, gem3, gem4);
 
 var collectedGems = [];
 
