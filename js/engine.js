@@ -184,7 +184,7 @@ var Engine = (function(global) {
         let gameDescription = 'Collect one Gem to gain 1000';
         let gameDescriptionTwo = 'Reach the water to gain 5000';
         let gameDescriptionThree = 'Collect one Heart to gain one life';
-        let gameDescriptionFour = 'Collect 100000 to win the game';
+        let gameDescriptionFour = 'Collect 100000 score to win the game';
 
         ctx.font = 'bold 25px Verdana';
         ctx.textAlign = 'center';
