@@ -114,7 +114,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed * dt;
 
-    if (this.x > 505) {
+    if (this.x > 707) {
         this.x = -100;
         this.speed = 100 + Math.floor(Math.random() * 480)
     }
