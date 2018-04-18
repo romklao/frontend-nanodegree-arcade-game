@@ -111,9 +111,9 @@ var rock4 = new Rock(108, 9);
 var rock5 = new Rock(310, 340);
 var rock6 = new Rock(617, 340);
 var rock7 = new Rock(9, 90);
+var rock8 = new Rock(411, 90);
 
-
-rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7);
+rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7, rock8);
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -247,9 +247,9 @@ Player.prototype.collide = function() {
 Player.prototype.faceRock = function() {
     for(var i = 0; i < rocks.length; i++) {
         if (this.x < rocks[i].x + 50 &&
-            this.x + 40 > rocks[i].x &&
+            this.x + 50 > rocks[i].x &&
             this.y < rocks[i].y + 50 &&
-            this.y + 40 > rocks[i].y) {
+            this.y + 50 > rocks[i].y) {
 
             this.x = this.playerPosition[this.playerPosition.length-1][0];
             this.y = this.playerPosition[this.playerPosition.length-1][1];
@@ -347,7 +347,7 @@ Player.prototype.collectGem = function() {
 };
 
 Player.prototype.winTheGame = function() {
-    if (this.score >= 100000) {
+    if (this.score >= 30000) {
         document.getElementById('score').innerHTML = this.score.toString();
         setTimeout(function() {
             playGame.win();
@@ -365,12 +365,12 @@ Player.prototype.update = function() {
     if (this.x < 0) {
         this.x = 0;
     }
+    player.faceRock();
     player.reachWater();
     player.checkDead();
     player.getHeart();
     player.collectGem();
     player.winTheGame();
-    player.faceRock();
 };
 
 Player.prototype.render = function() {
