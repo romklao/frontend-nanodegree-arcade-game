@@ -171,7 +171,7 @@ var playGame = new PlayGame();
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-    this.x = 203;
+    this.x = 304;
     this.y = 420;
     this.width = 100;
     this.height = 150;
@@ -322,8 +322,8 @@ Player.prototype.update = function() {
     if (this.y > 400) {
         this.y = 420;
     }
-    if (this.x > 403) {
-        this.x = 403;
+    if (this.x > 604) {
+        this.x = 604;
     }
     if (this.x < 0) {
         this.x = 0;
@@ -355,13 +355,13 @@ Player.prototype.handleInput = function(keypress) {
     }
     switch (keypress) {
         case 'left':
-            this.x -= this.speed + 50;
+            this.x -= this.speed + 51;
             break;
         case 'up':
             this.y -= this.speed + 32;
             break;
         case 'right':
-            this.x += this.speed + 50;
+            this.x += this.speed + 51;
             break;
         case 'down':
             this.y += this.speed + 32;
