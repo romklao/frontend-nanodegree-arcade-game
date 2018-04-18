@@ -1,6 +1,24 @@
-frontend-nanodegree-arcade-game
-===============================
+## Classic Arcade Game
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+![snippet](images/arcade-game.png)
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+![snippet](images/arcade-game1.png)
+
+## Link to Play
+Tap this link to start playing the memory game https://romklao.github.io/frontend-nanodegree-arcade-game/
+
+### How to Play the Game
+
+- Use the arrows to highlight which player you wish to use.
+- Press Enter to choose your player and start the game.
+- To play the game, use the arrow keys from your keyboard to move your player.
+
+
+### Game Rules
+
+-	Goal is to collect all Gems and reach the water.
+- 	You cannot move through rocks, but bugs can.
+-	Avoid touching bugs.
+-	If you touch a bug you lose a life, if you have no lives the game is over.
+- You can pick up Heart(s) to increase your lives by +1.
+
