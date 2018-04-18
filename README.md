@@ -1,9 +1,13 @@
 # Classic Arcade Game
 
-![snippet](images/arcade-game.png)
+<p align="center">
+  ![snippet](images/arcade-game.png)
+</p>
 
+<p align="center">
+	![snippet](images/arcade-game1.png)
+</p>
 
-![snippet](images/arcade-game1.png)
 
 ## Link to Play
 Tap this link to start playing the memory game https://romklao.github.io/frontend-nanodegree-arcade-game/
