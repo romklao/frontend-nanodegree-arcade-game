@@ -165,6 +165,9 @@ var Engine = (function(global) {
         gems.forEach(function(gem) {
             gem.render();
         });
+        rocks.forEach(function(rock) {
+            rock.render();
+        });
         enemies.forEach(function(enemy) {
             enemy.render();
         });
@@ -271,6 +274,7 @@ var Engine = (function(global) {
         'images/Heart.png',
         'images/Selector.png',
         'images/Star.png',
+        'images/Rock.png',
         'images/arrows.svg',
         'images/field.png',
         'images/diamond.svg',
