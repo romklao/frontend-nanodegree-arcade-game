@@ -128,8 +128,9 @@ var rock5 = new Rock(310, 340);
 var rock6 = new Rock(617, 340);
 var rock7 = new Rock(9, 90);
 var rock8 = new Rock(411, 90);
+var rock9 = new Rock(210, 175);
 
-rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7, rock8);
+rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7, rock8, rock9);
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -298,16 +299,16 @@ Player.prototype.checkDead = function() {
     if (!this.dead) {
         for(var i = 0; i < enemies.length; i++) {
             if (this.x < enemies[i].x + 50 &&
-                this.x + 40> enemies[i].x &&
+                this.x + 50> enemies[i].x &&
                 this.y < enemies[i].y + 50 &&
-                this.y + 40> enemies[i].y) {
+                this.y + 50> enemies[i].y) {
 
                 playGame.loseLifeSound.play();
 
                 this.dead = true;
                 // Set timeout for a cross to stay longer
                 setTimeout(function() {
-                    player.x = 203;
+                    player.x = 304;
                     player.y = 420;
                     player.dead = false;
                 }, 800);
@@ -459,7 +460,7 @@ var player = new Player();
 var selectPlayer = new SelectPlayer();
 
 var enemies = [];
-var enemyPosition = [70, 150, 230, 320];
+var enemyPosition = [60, 120, 160, 230, 320];
 
 enemyPosition.forEach((position) => {
     var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
