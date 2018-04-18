@@ -17,7 +17,7 @@ This is a simple game built to test a player's abilities to move quickly when fa
 Tap this link to start playing the arcade game https://romklao.github.io/frontend-nanodegree-arcade-game/
 
 ## Challenge
-Collect 30,000 points to win the game.
+Collect 20,000 points to win the game.
 
 ## How to Play the Game
 
@@ -28,7 +28,7 @@ Collect 30,000 points to win the game.
 
 ## Game Rules
 
--	Goal is to collect 30,000 points to win the game.
+-	Goal is to collect 20,000 points to win the game.
 - 	You cannot move through rocks, but bugs can.
 -	Avoid touching bugs.
 -	If you touch a bug your points are decreased by 2,000 and if you have no lives the game is over.
