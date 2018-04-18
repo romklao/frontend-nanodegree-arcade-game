@@ -24,7 +24,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
+    canvas.width = 707;
     canvas.height = 606;
     canvas.className = 'canvas'
     doc.body.appendChild(canvas);
@@ -116,14 +116,14 @@ var Engine = (function(global) {
 
             var rowImages = [
                 'images/water-block.png',   // Top row is water
-                'images/grass-block.png',   // Row 1 of 3 of stone
-                'images/grass-block.png',   // Row 2 of 3 of stone
-                'images/grass-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/stone-block.png'    // Row 2 of 2 of grass
+                'images/grass-block.png',   // Row 1 of 3 of grass
+                'images/grass-block.png',   // Row 2 of 3 of grass
+                'images/grass-block.png',   // Row 3 of 3 of grass
+                'images/grass-block.png',   // Row 4 of 3 of grass
+                'images/stone-block.png'    // Row 2 of 5 of stone
             ],
             numRows = 6,
-            numCols = 5,
+            numCols = 7,
             row, col;
 
         // Before drawing, clear existing canvas
@@ -179,7 +179,6 @@ var Engine = (function(global) {
         document.getElementById('score-panel').hidden = true;
         ctx.fillStyle = "cadetblue";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //ctx.drawImage(Resources.get('images/field.png'), canvas.width, 606);
 
         /***** Game Description *****/
         let gameDescription = 'Collect one Gem to gain 1000';
@@ -215,7 +214,7 @@ var Engine = (function(global) {
         ctx.lineWidth = 1;
         ctx.strokeText(move, canvas.width/2, 210);
 
-        ctx.drawImage(Resources.get('images/arrows.svg'), 185, 240, 130, 120);
+        ctx.drawImage(Resources.get('images/arrows.svg'), 280, 240, 130, 120);
 
         /***** Character section *****/
         let choosePlayer = 'Choose your player';
@@ -234,11 +233,11 @@ var Engine = (function(global) {
 
         function loadRender() {
             for (col = 0; col < 5; col++) {
-                ctx.drawImage(Resources.get('images/stone-block.png'), col * 101, 435);
+                ctx.drawImage(Resources.get('images/stone-block.png'), col * 101 + 100, 435);
             }
             selectPlayer.render();
             for (let i = 0; i < characters.length; i++) {
-                ctx.drawImage(Resources.get(characters[i]), i * 101, 435)
+                ctx.drawImage(Resources.get(characters[i]), i * 101 + 100, 435)
             }
         }
         loadRender();
