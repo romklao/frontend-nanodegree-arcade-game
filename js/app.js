@@ -252,6 +252,7 @@ Player.prototype.collide = function() {
         document.getElementById('score').innerHTML = this.score.toString();
 
         if (this.score < 0) {
+            // Set timeout for alert to popup after updating lives
             setTimeout(function() {
                 playGame.lose();
             }, 800);
@@ -282,6 +283,7 @@ Player.prototype.reachWater = function() {
         document.getElementById('score').innerHTML = this.score.toString();
 
         this.getGem = true;
+        // Set timeout for a diamond to stay longer
         setTimeout(function() {
             player.getGem = false;
         }, 500);
@@ -303,6 +305,7 @@ Player.prototype.checkDead = function() {
                 playGame.loseLifeSound.play();
 
                 this.dead = true;
+                // Set timeout for a cross to stay longer
                 setTimeout(function() {
                     player.x = 203;
                     player.y = 420;
@@ -331,6 +334,7 @@ Player.prototype.getHeart = function() {
             document.getElementById('lives').innerHTML = this.lives.toString();
 
             this.gainLife = true;
+            // Set timeout for a heart to stay longer
             setTimeout(function() {
                 player.gainLife = false;
             }, 500);
@@ -356,6 +360,7 @@ Player.prototype.collectGem = function() {
             document.getElementById('score').innerHTML = this.score.toString();
 
             this.getGem = true;
+            // Set timeout for a diamond to stay longer
             setTimeout(function() {
                 player.getGem = false;
             }, 500);
@@ -370,6 +375,7 @@ Player.prototype.collectGem = function() {
 Player.prototype.winTheGame = function() {
     if (this.score >= 30000) {
         document.getElementById('score').innerHTML = this.score.toString();
+
         setTimeout(function() {
             playGame.win();
         }, 10);
@@ -387,22 +393,31 @@ Player.prototype.update = function() {
     if (this.x < 0) {
         this.x = 0;
     }
+    // Hit a rock
     player.faceRock();
+    // Reach the water
     player.reachWater();
+    // Collide with a enemy
     player.checkDead();
+    // Get heart
     player.getHeart();
+    // Collect gem
     player.collectGem();
+    // Win the game
     player.winTheGame();
 };
 
 // Render in each condition
 Player.prototype.render = function() {
     if (this.dead) {
+        // When dead, show the cross image
         ctx.drawImage(Resources.get('images/cancel.svg'), this.x + 10, this.y + 45, 80, 80);
     } else if (this.getGem) {
+        // When collect a gem, show a diamond on the top of a charactor
         ctx.drawImage(Resources.get('images/diamond.svg'), this.x + 20, this.y - 15, 60, 60);
         ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
     } else if (this.gainLife) {
+        // When collect a heart, show a heart on the top of a charactor
         ctx.drawImage(Resources.get('images/Heart.png'), this.x + 20, this.y - 15, 60, 60);
         ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
     } else {
@@ -417,7 +432,7 @@ Player.prototype.handleInput = function(keypress) {
     }
     switch (keypress) {
         case 'left':
-            this.playerPosition.push([this.x, this.y]);
+            this.playerPosition.push([this.x, this.y]);// Keep x, y positions in the array
             this.x -= 101;
             break;
         case 'up':
@@ -469,6 +484,7 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
+// Stop scrolling when press keys
 document.onkeydown = KD;
 function KD(e) {
     event.returnValue = false;
