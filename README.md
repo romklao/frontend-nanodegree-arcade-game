@@ -1,6 +1,6 @@
 # Classic Arcade Game Clone
 
-## What is the Arcade Game Clone
+## What is the Arcade Game Clone?
 This is a simple game built to test a player's abilities to move quickly when face with dangerous bugs.
 
 
