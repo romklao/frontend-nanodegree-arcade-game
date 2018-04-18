@@ -143,11 +143,10 @@ var rock9 = new Rock(210, 175);
 rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7, rock8, rock9);
 
 // Create Enemy class our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, originalPosition) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = x;
-    this.y = y;
+    Item.call(this, x, y, originalPosition);
     this.speed = 100 + Math.floor(Math.random() * 480);
     this.width = 100;
     this.height = 160;
@@ -165,7 +164,7 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     if (this.x > 707) {
-        this.x = -50;//Bugs teleport to starting point
+        this.x = -70;//Bugs teleport to starting point
     }
 };
 
