@@ -165,7 +165,7 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     if (this.x > 707) {
-        this.x = -100;//Bugs teleport to starting point
+        this.x = -50;//Bugs teleport to starting point
     }
 };
 
