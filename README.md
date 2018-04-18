@@ -19,14 +19,14 @@ Tap this link to start playing the arcade game https://romklao.github.io/fronten
 ## Challenge
 Collect 30,000 points to win the game.
 
-### How to Play the Game
+## How to Play the Game
 
 - Use the arrows to highlight which player you wish to use.
 - Press Enter to choose your player and start the game.
 - To play the game, use the arrow keys from your keyboard to move your player.
 
 
-### Game Rules
+## Game Rules
 
 -	Goal is to collect 30,000 points to win the game.
 - 	You cannot move through rocks, but bugs can.
