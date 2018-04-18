@@ -1,5 +1,11 @@
 'use strict';
 
+/* This file includes objects such as player, enemies, selectPlayer etc.
+   to update their appearance in the view. It will be used in engine.js file
+*/
+
+// Global variables
+
 //Array of URLs for player and NPC sprites
 var characters = [
     'images/char-boy.png',
@@ -11,10 +17,10 @@ var characters = [
 // Set play to false to use it later
 var play = false;
 
-// Declare selectedChar variable to use it when a user chooses a charactor
+// Declare selectedChar variable to use when a user chooses a charactor
 var selectedChar;
 
-// Create SelectPlayer to allow a user to choose a character
+// Create SelectPlayer class to allow a player to choose a character
 var SelectPlayer = function() {
     this.col = 0;
     this.x = this.col + 100;
@@ -22,22 +28,25 @@ var SelectPlayer = function() {
     this.sprite = 'images/Selector.png';
 }
 
-// Get input from a player when they move selector
+// Get input from players when they move selector
 SelectPlayer.prototype.handleInput = function(keypress) {
     switch (keypress) {
+        // Press left key
         case 'left':
             this.col > 0 ? (this.col--, this.x = this.col * 101 + 100) : this.col;
             break;
+        // Press right key
         case 'right':
             this.col < 4 ? (this.col++, this.x = this.col * 101 + 100) : this.col;
             break;
+        // Press enter to select a charactor
         case 'enter':
             // This will be used for Charactor's index later
             selectedChar = this.col;
             play = true;
-            // Play sound effect when a uasers selects a charactor
+            // Play sound effect when a user selects a charactor
             playGame.select.play();
-            // After a charactor ie chose, redirect to play game
+            // After a charactor is chosen, redirect to play game
             playGame.resetGame();
     }
 };
@@ -45,14 +54,15 @@ SelectPlayer.prototype.handleInput = function(keypress) {
 // Selector render function
 SelectPlayer.prototype.render = function() {
     ctx.save();
-    // Show charactor in the game page
+    // Show a charactor on the screen
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.restore();
 }
 
 /****************** Super Class ******************/
-// Create Item class. This will be useful when include gems, rocks, hearts, etc.
-
+/* Create Item class. This will be useful when include gems, rocks, hearts, etc.
+   This will provide an item's original position, width and height.
+*/
 var Item = function(x, y) {
     this.x = x;
     this.y = y;
@@ -72,7 +82,7 @@ Item.prototype.render = function() {
 
 /****************** Sub-Class ******************/
 
-//Create Heart sub-class from Item class
+//Using inheritance to create Heart sub-class inherit from Item class
 var Heart = function(x, y, originalPosition, width, height) {
     Item.call(this, x, y, originalPosition, width, height);
     this.sprite = 'images/Heart.png';
@@ -89,7 +99,7 @@ hearts.push(heart1, heart2);
 
 var collectedHearts = [];
 
-//Create Gem sub-class from Item class
+// Using inheritance to create Gem sub-class inherit from Item class
 var Gem = function(x, y, originalPosition, width, height) {
     Item.call(this, x, y, originalPosition, width, height);
     this.sprite = 'images/Gem Blue.png';
@@ -108,7 +118,7 @@ gems.push(gem1, gem2, gem3, gem4);
 
 var collectedGems = [];
 
-//Create Rock sub-class from Item class
+// Using inheritance to create Rock sub-class inherit from Item class
 var Rock = function(x, y, originalPosition, width, height) {
     Item.call(this, x, y, originalPosition, width, height);
     this.sprite = 'images/Rock.png';
@@ -132,13 +142,13 @@ var rock9 = new Rock(210, 175);
 
 rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7, rock8, rock9);
 
-// Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+// Create Enemy class our player must avoid
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    this.speed = speed;
+    this.speed = 100 + Math.floor(Math.random() * 480);
     this.width = 100;
     this.height = 160;
     // The image/sprite for our enemies, this uses
@@ -156,7 +166,6 @@ Enemy.prototype.update = function(dt) {
 
     if (this.x > 707) {
         this.x = -100;//Bugs teleport to starting point
-        this.speed = 100 + Math.floor(Math.random() * 480)
     }
 };
 
@@ -463,7 +472,7 @@ var enemies = [];
 var enemyPosition = [60, 120, 160, 230, 320];
 
 enemyPosition.forEach((position) => {
-    var enemy = new Enemy(0, position, Math.floor(Math.random() * 400));
+    var enemy = new Enemy(0, position);
     enemies.push(enemy);
 });
 
