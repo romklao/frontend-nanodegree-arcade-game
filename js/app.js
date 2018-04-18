@@ -217,8 +217,7 @@ var playGame = new PlayGame();
 // Player class requires an update(), render() and
 // a handleInput() method. This will track score, lives, dead
 var Player = function() {
-    this.x = 304;
-    this.y = 420;
+    Item.call(this, 304, 420);
     this.playerPosition = [];
     this.width = 100;
     this.height = 150;
