@@ -13,7 +13,7 @@ var selectedChar;
 // Create SelectPlayer to allow a player to choose a character
 var SelectPlayer = function() {
     this.col = 0;
-    this.x = this.col;
+    this.x = this.col + 100;
     this.y = 395;
     this.sprite = 'images/Selector.png';
 }
@@ -22,10 +22,10 @@ var SelectPlayer = function() {
 SelectPlayer.prototype.handleInput = function(keypress) {
     switch (keypress) {
         case 'left':
-            this.col > 0 ? (this.col--, this.x = this.col * 101) : this.col;
+            this.col > 0 ? (this.col--, this.x = this.col * 101 + 100) : this.col;
             break;
         case 'right':
-            this.col < 4 ? (this.col++, this.x = this.col * 101) : this.col;
+            this.col < 4 ? (this.col++, this.x = this.col * 101 + 100) : this.col;
             break;
         case 'enter':
             selectedChar = this.col;
@@ -93,7 +93,7 @@ gems.push(gem1, gem2, gem3);
 var collectedGems = [];
 
 // Enemies our player must avoid
-let Enemy = function(x, y, speed) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
@@ -185,7 +185,7 @@ var Player = function() {
 }
 
 Player.prototype.reset = function() {
-    this.x = 203;
+    this.x = 304;
     this.y = 420;
     this.lives = 3;
     this.score = 0;
@@ -221,7 +221,7 @@ Player.prototype.collide = function() {
 };
 
 Player.prototype.reachWater = function() {
-    if (this.y < 10) {
+    if (this.y < 0) {
         playGame.getGemSound.play();
 
         this.score += 5000;
