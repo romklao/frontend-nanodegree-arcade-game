@@ -33,7 +33,7 @@ Collect 30,000 points to win the game.
 -	Avoid touching bugs.
 -	If you touch a bug your points are decreased by 2,000 and if you have no lives the game is over.
 -	You can collect Gem(s) to gain 1,000 points.
--	When you reach water, your points will increase by 5,0000.
+-	When you reach water, your points will increase by 5,000.
 -	If your points are less than 0, the game is over.
 - 	You can pick up Heart(s) to increase your lives by +1.
 
