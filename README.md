@@ -1,11 +1,11 @@
 # Classic Arcade Game
 
 <p align="center">
-  ![snippet](images/arcade-game.png)
+	<img src="images/arcade-game.png">
 </p>
 
 <p align="center">
-	![snippet](images/arcade-game1.png)
+	<img src="images/arcade-game1.png">
 </p>
 
 
