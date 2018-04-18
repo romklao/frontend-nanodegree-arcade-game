@@ -1,16 +1,16 @@
 # Classic Arcade Game
 
 <p align="center">
-	<img src="images/arcade-game.png">
+	<img src="images/arcade-game.png" width="550px">
 </p>
 
 <p align="center">
-	<img src="images/arcade-game1.png">
+	<img src="images/arcade-game1.png" width="550px">
 </p>
 
 
 ## Link to Play
-Tap this link to start playing the memory game https://romklao.github.io/frontend-nanodegree-arcade-game/
+Tap this link to start playing the arcade game https://romklao.github.io/frontend-nanodegree-arcade-game/
 
 ### How to Play the Game
 
