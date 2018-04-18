@@ -1,6 +1,7 @@
-## Classic Arcade Game
+# Classic Arcade Game
 
 ![snippet](images/arcade-game.png)
+
 
 ![snippet](images/arcade-game1.png)
 
