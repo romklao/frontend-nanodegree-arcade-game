@@ -93,6 +93,28 @@ gems.push(gem1, gem2, gem3, gem4);
 
 var collectedGems = [];
 
+var Rock = function(x, y, originalPosition, width, height) {
+    Item.call(this, x, y, originalPosition, width, height);
+    this.sprite = 'images/Rock.png';
+    this.width = 90;
+    this.height = 130;
+}
+
+Rock.prototype = Object.create(Item.prototype);
+
+var rocks = [];
+
+var rock1 = new Rock(210, 255);
+var rock2 = new Rock(510, 175);
+var rock3 = new Rock(411, 9);
+var rock4 = new Rock(108, 9);
+var rock5 = new Rock(310, 340);
+var rock6 = new Rock(617, 340);
+var rock7 = new Rock(9, 90);
+
+
+rocks.push(rock1, rock2, rock3, rock4, rock5, rock6, rock7);
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -174,6 +196,7 @@ var playGame = new PlayGame();
 var Player = function() {
     this.x = 304;
     this.y = 420;
+    this.playerPosition = [];
     this.width = 100;
     this.height = 150;
     this.speed = 50;
@@ -221,6 +244,19 @@ Player.prototype.collide = function() {
     }
 };
 
+Player.prototype.faceRock = function() {
+    for(var i = 0; i < rocks.length; i++) {
+        if (this.x < rocks[i].x + 50 &&
+            this.x + 40 > rocks[i].x &&
+            this.y < rocks[i].y + 50 &&
+            this.y + 40 > rocks[i].y) {
+
+            this.x = this.playerPosition[this.playerPosition.length-1][0];
+            this.y = this.playerPosition[this.playerPosition.length-1][1];
+        }
+    }
+};
+
 Player.prototype.reachWater = function() {
     if (this.y < 0) {
         playGame.getGemSound.play();
@@ -233,7 +269,7 @@ Player.prototype.reachWater = function() {
             player.getGem = false;
         }, 500);
 
-        this.x = 203;
+        this.x = 304;
         this.y = 420;
     }
 }
@@ -242,9 +278,9 @@ Player.prototype.checkDead = function() {
     if (!this.dead) {
         for(var i = 0; i < enemies.length; i++) {
             if (this.x < enemies[i].x + 50 &&
-                this.x > enemies[i].x &&
-                this.y < enemies[i].y + 40 &&
-                this.y > enemies[i].y) {
+                this.x + 40> enemies[i].x &&
+                this.y < enemies[i].y + 50 &&
+                this.y + 40> enemies[i].y) {
 
                 playGame.loseLifeSound.play();
 
@@ -286,7 +322,7 @@ Player.prototype.getHeart = function() {
     }
 };
 
-Player.prototype.getGemScore = function() {
+Player.prototype.collectGem = function() {
     for (var i = 0; i < gems.length; i++) {
         if (this.x < gems[i].x &&
             this.x + this.width > gems[i].x &&
@@ -332,8 +368,9 @@ Player.prototype.update = function() {
     player.reachWater();
     player.checkDead();
     player.getHeart();
-    player.getGemScore();
+    player.collectGem();
     player.winTheGame();
+    player.faceRock();
 };
 
 Player.prototype.render = function() {
@@ -356,16 +393,21 @@ Player.prototype.handleInput = function(keypress) {
     }
     switch (keypress) {
         case 'left':
-            this.x -= this.speed + 51;
+            this.playerPosition.push([this.x, this.y]);
+            console.log(this.playerPosition);
+            this.x -= 101;
             break;
         case 'up':
-            this.y -= this.speed + 32;
+            this.playerPosition.push([this.x, this.y]);
+            this.y -= 83;
             break;
         case 'right':
-            this.x += this.speed + 51;
+            this.playerPosition.push([this.x, this.y]);
+            this.x += 101;
             break;
         case 'down':
-            this.y += this.speed + 32;
+            this.playerPosition.push([this.x, this.y]);
+            this.y += 83;
             break;
     }
 };
