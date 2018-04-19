@@ -380,7 +380,7 @@ Player.prototype.getHeart = function() {
             setTimeout(function() {
                 player.gainLife = false;
             }, 500);
-
+            // Hearts disappear when player move pass
             hearts[i].x = 1000;
             hearts[i].y = 1000;
         }
@@ -390,9 +390,9 @@ Player.prototype.getHeart = function() {
 // This tracks score increasing when collect gems
 Player.prototype.collectGem = function() {
     for (var i = 0; i < gems.length; i++) {
-        if (this.x < gems[i].x + 60 &&
+        if (this.x < gems[i].x + 50 &&
             this.x + 50 > gems[i].x &&
-            this.y < gems[i].y + 60 &&
+            this.y < gems[i].y + 50 &&
             this.y + 50 > gems[i].y) {
 
             // Add sound effect when collect gem
@@ -407,7 +407,7 @@ Player.prototype.collectGem = function() {
             setTimeout(function() {
                 player.getGem = false;
             }, 500);
-
+            // Gems disappear when player move pass
             gems[i].x = 1000;
             gems[i].y = 1000;
         }
@@ -457,7 +457,6 @@ Player.prototype.render = function() {
         ctx.drawImage(Resources.get('images/cancel.svg'), this.x + 10, this.y + 45, 80, 80);
     } else if (this.getGem) {
         // When collect a gem, show a diamond on the top of a character
-
         ctx.drawImage(Resources.get('images/diamond.svg'), this.x + 20, this.y - 15, 60, 60);
         ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
     } else if (this.gainLife) {
