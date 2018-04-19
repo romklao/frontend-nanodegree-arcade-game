@@ -50,8 +50,7 @@ SelectPlayer.prototype.handleInput = function(keypress) {
             // Play sound effect when a user selects a character
 
             playGame.select.play();
-            // After a character
-         is chosen, redirect to play game
+            // After a character is chosen, redirect to play game
             playGame.resetGame();
     }
 };
@@ -59,8 +58,7 @@ SelectPlayer.prototype.handleInput = function(keypress) {
 // Selector render function
 SelectPlayer.prototype.render = function() {
     ctx.save();
-    // Show a character
- on the screen
+    // Show a character on the screen
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.restore();
 }
