@@ -335,9 +335,9 @@ Player.prototype.checkDead = function() {
     if (!this.dead) {
         for(var i = 0; i < enemies.length; i++) {
             if (this.x < enemies[i].x + 60 &&
-                this.x + 50> enemies[i].x &&
+                this.x + 50 > enemies[i].x &&
                 this.y < enemies[i].y + 60 &&
-                this.y + 50> enemies[i].y) {
+                this.y + 50 > enemies[i].y) {
 
                 // Add sound effect when collide with enemy
                 playGame.loseLifeSound.play();
@@ -361,10 +361,10 @@ Player.prototype.checkDead = function() {
 Player.prototype.getHeart = function() {
     for(var i = 0; i < hearts.length; i++) {
         // Condition of player getting heart
-        if (this.x < hearts[i].x &&
-            this.x + this.width > hearts[i].x &&
-            this.y < hearts[i].y &&
-            this.y + this.height > hearts[i].y) {
+        if (this.x < hearts[i].x + 50 &&
+            this.x + 50 > hearts[i].x &&
+            this.y < hearts[i].y + 50 &&
+            this.y + 50 > hearts[i].y) {
 
             // Add sound effect when gain a heart
             playGame.gainLifeSound.play();
@@ -390,10 +390,10 @@ Player.prototype.getHeart = function() {
 // This tracks score increasing when collect gems
 Player.prototype.collectGem = function() {
     for (var i = 0; i < gems.length; i++) {
-        if (this.x < gems[i].x &&
-            this.x + this.width > gems[i].x &&
-            this.y < gems[i].y &&
-            this.y + this.height > gems[i].y) {
+        if (this.x < gems[i].x + 60 &&
+            this.x + 50 > gems[i].x &&
+            this.y < gems[i].y + 60 &&
+            this.y + 50 > gems[i].y) {
 
             // Add sound effect when collect gem
             playGame.getGemSound.play();
