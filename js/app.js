@@ -310,6 +310,7 @@ Player.prototype.faceRock = function() {
 // reachWater method: earn 5,000 points when reaching water
 Player.prototype.reachWater = function() {
     if (this.y < 0) {
+        // Add sound effect when reach water
         playGame.getGemSound.play();
 
         this.score += 5000;
@@ -335,6 +336,7 @@ Player.prototype.checkDead = function() {
                 this.y < enemies[i].y + 60 &&
                 this.y + 50> enemies[i].y) {
 
+                // Add sound effect when collide with enemy
                 playGame.loseLifeSound.play();
                 // Set dead to true so the cross sign appears above a charactor
                 this.dead = true;
@@ -360,6 +362,7 @@ Player.prototype.getHeart = function() {
             this.y < hearts[i].y &&
             this.y + this.height > hearts[i].y) {
 
+            // Add sound effect when gain a heart
             playGame.gainLifeSound.play();
 
             collectedHearts.push([hearts[i].x, hearts[i].y]);
@@ -388,6 +391,7 @@ Player.prototype.collectGem = function() {
             this.y < gems[i].y &&
             this.y + this.height > gems[i].y) {
 
+            // Add sound effect when collect gem
             playGame.getGemSound.play();
 
             collectedGems.push(gems[i].x, gems[i].y);
