@@ -19,7 +19,7 @@ var characters = [
 // Set play to false to use it later
 var play = false;
 
-// Declare selectedChar variable to use when a user chooses a charactor
+// Declare selectedChar variable to use when a user chooses a character
 var selectedChar;
 
 // Create SelectPlayer class to allow a player to choose a character
@@ -41,14 +41,17 @@ SelectPlayer.prototype.handleInput = function(keypress) {
         case 'right':
             this.col < 4 ? (this.col++, this.x = this.col * 101 + 100) : this.col;
             break;
-        // Press enter to select a charactor
+        // Press enter to select a character
+
         case 'enter':
             // This will be used for Charactor's index later
             selectedChar = this.col;
             play = true;
-            // Play sound effect when a user selects a charactor
+            // Play sound effect when a user selects a character
+
             playGame.select.play();
-            // After a charactor is chosen, redirect to play game
+            // After a character
+         is chosen, redirect to play game
             playGame.resetGame();
     }
 };
@@ -56,7 +59,8 @@ SelectPlayer.prototype.handleInput = function(keypress) {
 // Selector render function
 SelectPlayer.prototype.render = function() {
     ctx.save();
-    // Show a charactor on the screen
+    // Show a character
+ on the screen
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.restore();
 }
@@ -179,7 +183,7 @@ Enemy.prototype.render = function() {
 };
 
 /************** PlayGame class ***************/
-/* This sets sound effect for select a charactor, gain life, get gem and dead.
+/* This sets sound effect for select a character, gain life, get gem and dead.
    Provide alert on the screen when player win and lose.
    Reset the screen after a player lose.
 */
@@ -315,7 +319,8 @@ Player.prototype.reachWater = function() {
 
         this.score += 5000;
         document.getElementById('score').innerHTML = this.score.toString();
-        // Set getGem to true so a diamond appears above a charactor
+        // Set getGem to true so a diamond appears above a character
+
         this.getGem = true;
         // Set timeout for a diamond to stay longer
         setTimeout(function() {
@@ -338,7 +343,8 @@ Player.prototype.checkDead = function() {
 
                 // Add sound effect when collide with enemy
                 playGame.loseLifeSound.play();
-                // Set dead to true so the cross sign appears above a charactor
+                // Set dead to true so the cross sign appears above a character
+
                 this.dead = true;
                 // Set timeout for the sign to stay longer
                 setTimeout(function() {
@@ -446,17 +452,19 @@ Player.prototype.update = function() {
     player.winTheGame();
 };
 
-// Render charactor with cross sign, diamond or heart in each condition
+// Render character with cross sign, diamond or heart in each condition
 Player.prototype.render = function() {
     if (this.dead) {
         // When dead, show the cross image
         ctx.drawImage(Resources.get('images/cancel.svg'), this.x + 10, this.y + 45, 80, 80);
     } else if (this.getGem) {
-        // When collect a gem, show a diamond on the top of a charactor
+        // When collect a gem, show a diamond on the top of a character
+
         ctx.drawImage(Resources.get('images/diamond.svg'), this.x + 20, this.y - 15, 60, 60);
         ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
     } else if (this.gainLife) {
-        // When collect a heart, show a heart on the top of a charactor
+        // When collect a heart, show a heart on the top of a character
+
         ctx.drawImage(Resources.get('images/Heart.png'), this.x + 20, this.y - 15, 60, 60);
         ctx.drawImage(Resources.get(characters[selectedChar]), this.x, this.y, this.width, this.height);
     } else {
@@ -464,7 +472,7 @@ Player.prototype.render = function() {
     }
 };
 
-// Press keys to move a charactor around the screen
+// Press keys to move a character around the screen
 Player.prototype.handleInput = function(keypress) {
     if (this.dead) {
         return;
@@ -492,7 +500,7 @@ Player.prototype.handleInput = function(keypress) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called enemies
 // Place the player object in a variable called player
-// Place selected charactor in a variable called selectPlayer
+// Place selected character in a variable called selectPlayer
 
 var player = new Player();
 var selectPlayer = new SelectPlayer();
